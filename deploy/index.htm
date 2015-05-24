@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-gb">
+	<head>
+		<title>EcoModeler</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		
+		<link href="css/reset.css" rel="stylesheet" type="text/css">
+		<link href="css/mentalmodeler.css" rel="stylesheet" type="text/css">
+		
+		<script language="javascript" src="js/swfobject.js"></script>
+		<script language="javascript" src="js/jquery-1.4.2.min.js"></script>
+		<script language="javascript" src="js/throttle_debounce-1.1.js"></script>
+		
+		<script type="text/javascript">
+			
+			var useControlButtons = true;
+			var flashWidth = 800;
+			var flashHeight = 600;
+			
+			$(document).ready(
+				function(){ 
+					$(window).resize($.debounce(500, adjustSize));
+				}
+			)
+			
+			
+			function doSave() {
+				$("#movie")[0].doSave(); 
+			}
+			
+			function doLoad() {
+				var s = "<?xml version='1.0' encoding='UTF-8'?><mentalModeler version='0.3' date='Wed Aug 22 20:08:55 GMT-0500 2012' author='Jonathan'><![CDATA[Testing loading from javascript]]><component id='0' x='172.15' y='97'><![CDATA[Loading]]><influence id='1' value='M+'><![CDATA[From]]></influence></component><component id='1' x='594.15' y='137'><![CDATA[From]]><influence id='2' value='L-'><![CDATA[Javascript]]></influence></component><component id='2' x='303.15' y='299'><![CDATA[Javascript]]></component></mentalModeler>";
+				$("#movie")[0].doLoad(s);
+			}
+			
+			function getMovie(movieName) {
+				return document.getElementById(movieName);
+			}
+
+			function updateFlashSize(w, h)
+			{
+				//alert("updateFlashSize, w:"+w+", h:"+h);
+				flashWidth = w;
+				flashHeight = h;
+				adjustSize();
+			}
+
+			function adjustSize()
+			{
+				var windowWidth = $(window).width();
+				var windowHeight = $(window).height();
+				var bodyWidth = $("body").width();
+				var bodyHeight = $("body").height();
+				
+				//alert("windowHeight:"+windowHeight+", windowWidth:"+windowWidth+", flashHeight:"+flashHeight+", flashWidth:"+flashWidth+", bodyHeight:"+bodyHeight+", bodyWidth:"+bodyWidth);
+				
+				if ($("body").width() <= flashWidth) {
+					if (windowWidth > flashWidth) {
+						$("body").css("width", "100%");
+						$("#movie").css("width", "100%");
+					}
+					else {
+						$("body").css("width", flashWidth + "px");
+						$("#movie").css("width", flashWidth + "px");
+					}
+				}
+				else {
+					$("body").css("width", "100%");
+					$("#movie").css("width", "100%");
+				}
+				
+				if ($("body").height() <= flashHeight) {
+					if (windowHeight > flashHeight) {
+						$("body").css("height", "100%");
+						$("#movie").css("height", "100%");
+					}
+					else {
+						$("body").css("height", flashHeight + "px");
+						$("#movie").css("height", flashHeight + "px");
+					}
+				}
+				else {
+					$("body").css("height", "100%");
+					$("#movie").css("height", "100%");
+				}
+			}
+			
+			var embed = {
+				swf: "EcoModeler.swf",
+				container: "movie",
+				width: "100%",
+				height: "100%",
+				version: "10.0.0.0",
+				expressInstall: "expressInstall.swf"
+			};
+		
+			var flashvars = {};
+
+			var params = {
+				menu: "false",
+				allowScriptAccess: "always",
+				wmode: "direct"
+			};
+		
+			var attributes = {};
+		
+			swfobject.embedSWF(embed.swf, embed.container, embed.width, embed.height, embed.version, embed.expressInstall, flashvars, params, attributes);
+			
+		</script>
+	</head>
+	<body id="body">
+		<!--
+		<div id="controls">
+			<button type="button" onclick="doSave()">SAVE</button>
+			<button type="button" onclick="doLoad()">LOAD</button>
+		</div>
+		-->
+		<div id="movie">
+		</div>
+	</body>
+</html>

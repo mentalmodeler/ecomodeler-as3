@@ -1,0 +1,36 @@
+html {
+	height:100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	overflow:auto;
+}
+
+body {
+	background: #FFFFFF;
+	height:100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	min-width:674px;
+	min-height:160px;
+	overflow:hidden;
+}
+
+#controls {
+	background: #000000;
+	width: 100%;
+	margin: 0;
+	padding: 5px;
+	min-width:674px;
+	min-height:10px;
+}
+
+#movie {
+	width: 100%;
+	height: 100%;
+	min-width:674px;
+	min-height:160px;
+	margin: 0;
+	padding: 0;
+}
